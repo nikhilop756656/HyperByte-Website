@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperByte - Advanced Cyberpunk Tech Hub</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;700&display=swap');
+
+        :root {
+            --neon-cyan: #00ffff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffff00;
+            --neon-green: #39ff14;
+            --neon-blue: #4169e1;
+            --neon-orange: #ff6600;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --text-color: #ffffff;
+            --gradient-1: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            --gradient-2: linear-gradient(135deg, var(--neon-magenta), var(--neon-yellow));
+            --gradient-3: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            --gradient-4: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(5, 5, 5, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::before, .logo::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.8;
+        }
+
+        .logo::before {
+            left: 2px;
+            text-shadow: -1px 0 var(--neon-magenta);
+            animation: glitch-1 2s infinite linear alternate-reverse;
+        }
+
+        .logo::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--neon-yellow);
+            animation: glitch-2 3s infinite linear alternate-reverse;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-3);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1614850715649-1d0106293bd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px var(--neon-magenta);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--gradient-1);
+            color: var(--dark-bg);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: var(--gradient-2);
+            box-shadow: 0 0 20px var(--neon-magenta);
+            transform: scale(1.05);
+        }
+
+        .features {
+            padding: 100px 0;
+            background-color: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                var(--neon-blue) 0%,
+                transparent 70%
+            );
+            opacity: 0.1;
+            animation: pulse 10s infinite;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--neon-yellow);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                var(--neon-cyan) 0%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats {
+            padding: 100px 0;
+            background-color: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--neon-blue) 0%, transparent 100%);
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .stats h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--neon-yellow);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chart-container {
+            width: 300px;
+            height: 300px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: var(--gradient-3);
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .stats-text {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .stats-text p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--gradient-4);
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+            background: var(--gradient-1);
+            clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            animation: shine 5s infinite linear;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--dark-bg);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .tech-showcase {
+            padding: 100px 0;
+            background-color: var(--darker-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-showcase h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--neon-green);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .tech-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-10px) rotateY(10deg);
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tech-description {
+            display: none;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        footer {
+            background-color: var(--darker-bg);
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-1);
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-links a:hover::before {
+            opacity: 1;
+        }
+
+        .social-links a:hover {
+            color: var(--neon-cyan);
+            transform: scale(1.2);
+        }
+
+        @keyframes glitch-1 {
+            0% {
+                clip-path: inset(20% 0 30% 0);
+            }
+            100% {
+                clip-path: inset(10% 0 85% 0);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0% {
+                clip-path: inset(80% 0 5% 0);
+            }
+            100% {
+                clip-path: inset(40% 0 43% 0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-magenta);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-yellow);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim-2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(10px, 9999px, 31px, 0);
+                transform: skew(0.6deg);
+            }
+            5% {
+                clip: rect(70px, 9999px, 71px, 0);
+                transform: skew(0.3deg);
+            }
+            10% {
+                clip: rect(5px, 9999px, 52px, 0);
+                transform: skew(0.2deg);
+            }
+            15% {
+                clip: rect(28px, 9999px, 40px, 0);
+                transform: skew(0.1deg);
+            }
+            20% {
+                clip: rect(18px, 9999px, 14px, 0);
+                transform: skew(0.8deg);
+            }
+            25% {
+                clip: rect(1px, 9999px, 4px, 0);
+                transform: skew(0.5deg);
+            }
+            30% {
+                clip: rect(38px, 9999px, 87px, 0);
+                transform: skew(0.7deg);
+            }
+            35% {
+                clip: rect(60px, 9999px, 3px, 0);
+                transform: skew(0.4deg);
+            }
+            40% {
+                clip: rect(73px, 9999px, 69px, 0);
+                transform: skew(0.9deg);
+            }
+            45% {
+                clip: rect(91px, 9999px, 85px, 0);
+                transform: skew(0.2deg);
+            }
+            50% {
+                clip: rect(84px, 9999px, 34px, 0);
+                transform: skew(0.6deg);
+            }
+            55% {
+                clip: rect(35px, 9999px, 76px, 0);
+                transform: skew(0.3deg);
+            }
+            60% {
+                clip: rect(6px, 9999px, 33px, 0);
+                transform: skew(0.7deg);
+            }
+            65% {
+                clip: rect(93px, 9999px, 64px, 0);
+                transform: skew(0.1deg);
+            }
+            70% {
+                clip: rect(79px, 9999px, 21px, 0);
+                transform: skew(0.4deg);
+            }
+            75% {
+                clip: rect(49px, 9999px, 35px, 0);
+                transform: skew(0.8deg);
+            }
+            80% {
+                clip: rect(15px, 9999px, 80px, 0);
+                transform: skew(0.5deg);
+            }
+            85% {
+                clip: rect(24px, 9999px, 16px, 0);
+                transform: skew(0.2deg);
+            }
+            90% {
+                clip: rect(39px, 9999px, 30px, 0);
+                transform: skew(0.6deg);
+            }
+            95% {
+                clip: rect(66px, 9999px, 90px, 0);
+                transform: skew(0.3deg);
+            }
+            100% {
+                clip: rect(82px, 9999px, 23px, 0);
+                transform: skew(0.7deg);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(65px, 9999px, 91px, 0);
+                transform: skew(0.3deg);
+            }
+            5% {
+                clip: rect(35px, 9999px, 76px, 0);
+                transform: skew(0.8deg);
+            }
+            10% {
+                clip: rect(50px, 9999px, 22px, 0);
+                transform: skew(0.5deg);
+            }
+            15% {
+                clip: rect(8px, 9999px, 90px, 0);
+                transform: skew(0.1deg);
+            }
+            20% {
+                clip: rect(61px, 9999px, 4px, 0);
+                transform: skew(0.6deg);
+            }
+            25% {
+                clip: rect(37px, 9999px, 56px, 0);
+                transform: skew(0.2deg);
+            }
+            30% {
+                clip: rect(86px, 9999px, 29px, 0);
+                transform: skew(0.7deg);
+            }
+            35% {
+                clip: rect(7px, 9999px, 24px, 0);
+                transform: skew(0.4deg);
+            }
+            40% {
+                clip: rect(15px, 9999px, 58px, 0);
+                transform: skew(0.9deg);
+            }
+            45% {
+                clip: rect(98px, 9999px, 18px, 0);
+                transform: skew(0.3deg);
+            }
+            50% {
+                clip: rect(71px, 9999px, 46px, 0);
+                transform: skew(0.5deg);
+            }
+            55% {
+                clip: rect(28px, 9999px, 98px, 0);
+                transform: skew(0.1deg);
+            }
+            60% {
+                clip: rect(52px, 9999px, 3px, 0);
+                transform: skew(0.8deg);
+            }
+            65% {
+                clip: rect(36px, 9999px, 78px, 0);
+                transform: skew(0.2deg);
+            }
+            70% {
+                clip: rect(94px, 9999px, 85px, 0);
+                transform: skew(0.6deg);
+            }
+            75% {
+                clip: rect(11px, 9999px, 63px, 0);
+                transform: skew(0.4deg);
+            }
+            80% {
+                clip: rect(45px, 9999px, 12px, 0);
+                transform: skew(0.7deg);
+            }
+            85% {
+                clip: rect(73px, 9999px, 57px, 0);
+                transform: skew(0.3deg);
+            }
+            90% {
+                clip: rect(84px, 9999px, 41px, 0);
+                transform: skew(0.5deg);
+            }
+            95% {
+                clip: rect(21px, 9999px, 70px, 0);
+                transform: skew(0.1deg);
+            }
+            100% {
+                clip: rect(59px, 9999px, 87px, 0);
+                transform: skew(0.9deg);
+            }
+        }
+
+        .neon-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(var(--neon-cyan) 1px, transparent 1px),
+                linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .feature-grid, .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-content {
+                flex-direction: column;
+            }
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.2s ease;
+        }
+
+        .cursor::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            border: 8px solid var(--neon-magenta);
+            border-radius: 50%;
+            opacity: 0.5;
+            top: -8px;
+            left: -8px;
+            animation: cursorAnim 0.5s infinite alternate;
+        }
+
+        @keyframes cursorAnim {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(0.7);
+            }
+        }
+
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+
+        .hover-glow:hover {
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+        }
+
+        .cyberpunk-checkbox {
+            display: none;
+        }
+
+        .cyberpunk-checkbox + label {
+            display: inline-block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .cyberpunk-checkbox + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            border: 2px solid var(--neon-cyan);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .cyberpunk-checkbox:checked + label:before {
+            background-color: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .cyberpunk-checkbox:checked + label:after {
+            content: '✓';
+            position: absolute;
+            left: 7px;
+            top: 2px;
+            color: var(--dark-bg);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .cyberpunk-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(to right, var(--neon-cyan), var(--neon-magenta));
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .cyberpunk-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--neon-yellow);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .cyberpunk-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--neon-yellow);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        #hologram {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .dashboard {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-item {
+            background-color: rgba(0, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .dashboard-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-item p {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--neon-cyan);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="cursor"></div>
+    <header>
+        <nav class="container">
+            <div class="logo" data-text="HyperByte">HyperByte</div>
+            <div class="nav-links">
+                <a href="#features" class="hover-glow">Features</a>
+                <a href="#stats" class="hover-glow">Stats</a>
+                <a href="#tech-showcase" class="hover-glow">Tech</a>
+                <a href="#cta" class="hover-glow">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="neon-grid"></div>
+            <div class="hero-content">
+                <h1 class="glitch" data-text="Welcome to HyperByte">Welcome to HyperByte</h1>
+                <p>Unleash the power of next-gen technology</p>
+                <a href="#cta" class="btn">Dive In</a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Cutting-Edge Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-item floating">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Quantum AI</h3>
+                        <p>Harness the power of quantum computing for unparalleled AI performance.</p>
+                    </div>
+                    <div class="feature-item floating" style="animation-delay: 1s;">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Blockchain Security</h3>
+                        <p>Unbreakable security with advanced blockchain technology.</p>
+                    </div>
+                    <div class="feature-item floating" style="animation-delay: 2s;">
+                        <div class="feature-icon">🌐</div>
+                        <h3>Neural Networks</h3>
+                        <p>Interconnected systems mimicking the human brain for complex problem-solving.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stats" class="stats">
+            <div class="container">
+                <h2>HyperByte Performance</h2>
+                <div class="stats-content">
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                    <div class="stats-text">
+                        <p>Processing Power: 100 Petaflops</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 90%;"></div>
+                        </div>
+                        <p>Quantum Bits: 1000 Qubits</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%;"></div>
+                        </div>
+                        <p>AI Accuracy: 99.99%</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech-showcase" class="tech-showcase">
+            <div class="container">
+                <h2>Futuristic Technologies</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-icon">🤖</div>
+                        <h3>Nanorobotics</h3>
+                        <p class="tech-description">Microscopic robots for precision tasks at the cellular level.</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🧬</div>
+                        <h3>Bioengineering</h3>
+                        <p class="tech-description">Cutting-edge genetic modifications for enhanced human capabilities.</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🚀</div>
+                        <h3>Quantum Propulsion</h3>
+                        <p class="tech-description">Harnessing quantum mechanics for interstellar travel.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard">
+            <div class="container">
+                <h2>HyperByte Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-item">
+                        <h3>Active Users</h3>
+                        <p id="activeUsers">0</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <h3>Server Load</h3>
+                        <p id="serverLoad">0%</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <h3>Hyper Processes</h3>
+                        <p id="aiProcesses">0</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <h3>Hyper Calculations</h3>
+                        <p id="quantumCalc">0/s</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta" class="cta">
+            <div class="container">
+                <h2>Ready to Step into the Future?</h2>
+                <a href="#" class="btn">Join HyperByte Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 HyperByte. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="hover-glow">Facebook</a>
+                <a href="#" class="hover-glow">Twitter</a>
+                <a href="#" class="hover-glow">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particle.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00ffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#00ffff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                modes: { grab: { distance: 400, line_linked: { opacity: 1 } }, bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 }, repulse: { distance: 200, duration: 0.4 }, push: { particles_nb: 4 }, remove: { particles_nb: 2 } }
+            },
+            retina_detect: true
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.setAttribute("style", "top: "+(e.pageY - 10)+"px; left: "+(e.pageX - 10)+"px;")
+        })
+        document.addEventListener('click', () => {
+            cursor.classList.add("expand");
+            setTimeout(() => {
+                cursor.classList.remove("expand");
+            }, 500)
+        })
+
+        // Scroll header effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 0);
+        });
+
+        // Performance Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['SERVERS', 'USERS', 'DATA'],
+                datasets: [{
+                    data: [30, 50, 20],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'HyperByte Technology Distribution'
+                    }
+                }
+            }
+        });
+
+        // Tech item hover effect
+        document.querySelectorAll('.tech-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.querySelector('.tech-description').style.display = 'block';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.querySelector('.tech-description').style.display = 'none';
+            });
+        });
+
+        // Dashboard live updates
+        function updateDashboard() {
+            document.getElementById('activeUsers').textContent = Math.floor(Math.random() * 10000);
+            document.getElementById('serverLoad').textContent = Math.floor(Math.random() * 100) + '%';
+            document.getElementById('aiProcesses').textContent = Math.floor(Math.random() * 1000);
+            document.getElementById('quantumCalc').textContent = Math.floor(Math.random() * 1000000) + '/s';
+        }
+
+        setInterval(updateDashboard, 2000);
+
+        // 3D Hologram effect
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(300, 300);
+        document.getElementById('hologram').appendChild(renderer.domElement);
+
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        camera.position.z = 30;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Parallax effect
+        const parallaxScene = document.getElementById('parallax-scene');
+        const parallaxInstance = new Parallax(parallaxScene);
+    </script>
+</body>
+</html>
