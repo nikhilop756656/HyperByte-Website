@@ -1,4 +1,4 @@
-# Hyperbye Hosting
+# Hyperbye 
 
 Welcome to **Hyperbye** – the ultimate hosting solution for all your needs!
 
