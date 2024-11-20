@@ -16,4 +16,4 @@ Welcome to **Hyperbye** – the ultimate hosting solution for all your needs!
 ## Get Started Today!
 Join us and experience hosting like never before. 🚀
 
-Visit [Hyperbye Hosting](https://hyperbye.com) to learn more.
+Visit [Hyperbye Hosting](https://hyper-byte-git-main-princes-projects-2ff0b7b0.vercel.app/) to learn more.
