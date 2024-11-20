@@ -1,6 +1,6 @@
-# Hyperbye 
+# Hyperbyte 
 
-Welcome to **Hyperbye** – the ultimate hosting solution for all your needs!
+Welcome to **Hyperbyte** – the ultimate hosting solution for all your needs!
 
 ## Features:
 - High-performance servers
@@ -8,7 +8,7 @@ Welcome to **Hyperbye** – the ultimate hosting solution for all your needs!
 - Scalable plans
 - Affordable pricing
 
-## Why Hyperbye?
+## Why Hyperbyte?
 - Fast and reliable
 - Easy to manage
 - Secure and protected
@@ -16,4 +16,4 @@ Welcome to **Hyperbye** – the ultimate hosting solution for all your needs!
 ## Get Started Today!
 Join us and experience hosting like never before. 🚀
 
-Visit [Hyperbye Hosting](https://hyper-byte-git-main-princes-projects-2ff0b7b0.vercel.app/) to learn more.
+Visit [Hyperbyte Hosting](https://hyper-byte-git-main-princes-projects-2ff0b7b0.vercel.app/) to learn more.
