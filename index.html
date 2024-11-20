@@ -906,7 +906,7 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Particle.js configuration
+        // Particle.js configuration for background
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -945,16 +945,16 @@
             },
             retina_detect: true
         });
-
-        // Performance Chart
+    
+        // Performance Chart (Minecraft Hosting Performance)
         const performanceCtx = document.getElementById('performanceChart').getContext('2d');
         new Chart(performanceCtx, {
             type: 'radar',
             data: {
                 labels: ['Speed', 'Efficiency', 'Security', 'Scalability', 'Innovation'],
                 datasets: [{
-                    label: 'HyperByte Performance',
-                    data: [95, 98, 100, 92, 97],
+                    label: 'HyperByte Minecraft Hosting - India (Mumbai)',
+                    data: [95, 98, 100, 92, 97], // Example performance data
                     backgroundColor: 'rgba(0, 255, 255, 0.2)',
                     borderColor: 'rgba(0, 255, 255, 1)',
                     pointBackgroundColor: 'rgba(0, 255, 255, 1)',
@@ -968,34 +968,30 @@
                 maintainAspectRatio: false,
                 scales: {
                     r: {
-                        angleLines: {
-                            display: false
-                        },
+                        angleLines: { display: false },
                         suggestedMin: 50,
                         suggestedMax: 100
                     }
                 },
                 plugins: {
-                    legend: {
-                        display: false
-                    }
+                    legend: { display: false }
                 }
             }
         });
-
-        // Efficiency Chart
+    
+        // Efficiency Chart (DDoS Protection & Hosting Features)
         const efficiencyCtx = document.getElementById('efficiencyChart').getContext('2d');
         new Chart(efficiencyCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Quantum', 'Neural', 'Holo', 'Nano'],
+                labels: ['DDoS Protection', 'Speed', 'Scalability', 'Support'],
                 datasets: [{
-                    data: [40, 30, 20, 10],
+                    data: [40, 30, 20, 10], // Example feature breakdown
                     backgroundColor: [
-                        'rgba(0, 255, 255, 0.8)',
-                        'rgba(255, 0, 255, 0.8)',
-                        'rgba(255, 255, 0, 0.8)',
-                        'rgba(57, 255, 20, 0.8)'
+                        'rgba(0, 255, 255, 0.8)', // DDoS Protection
+                        'rgba(255, 0, 255, 0.8)', // Speed
+                        'rgba(255, 255, 0, 0.8)', // Scalability
+                        'rgba(57, 255, 20, 0.8)' // 24/7 Support
                     ],
                     borderColor: [
                         'rgba(0, 255, 255, 1)',
@@ -1012,14 +1008,12 @@
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: {
-                            color: 'white'
-                        }
+                        labels: { color: 'white' }
                     }
                 }
             }
         });
-
+    
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1029,14 +1023,14 @@
                 });
             });
         });
-
+    
         // Parallax effect for hero section
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
             hero.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
         });
-
+    
         // Interactive CTA button
         const ctaButton = document.getElementById('ctaButton');
         ctaButton.addEventListener('click', () => {
@@ -1044,19 +1038,19 @@
             ctaButton.style.background = 'var(--neon-yellow)';
             ctaButton.style.color = 'var(--dark-bg)';
             setTimeout(() => {
-                ctaButton.textContent = 'HyperByte Activated!';
+                ctaButton.textContent = 'Minecraft Hosting Activated!';
                 ctaButton.style.background = 'var(--gradient-2)';
             }, 2000);
         });
-
-        // Dynamic neon grid
+    
+        // Dynamic neon grid effect
         const neonGrid = document.querySelector('.neon-grid');
         window.addEventListener('mousemove', (e) => {
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             neonGrid.style.opacity = 0.1 + (x + y) * 0.1;
         });
-
+    
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
@@ -1066,7 +1060,7 @@
                 header.classList.remove('scrolled');
             }
         });
-
+    
         // Glitch effect on hover for feature items
         const featureItems = document.querySelectorAll('.feature-item');
         featureItems.forEach(item => {
@@ -1077,7 +1071,7 @@
                 item.classList.remove('glitch');
             });
         });
-
+    
         // Interactive tech showcase
         const techItems = document.querySelectorAll('.tech-item');
         techItems.forEach(item => {
@@ -1087,16 +1081,18 @@
                 description.style.display = description.style.display === 'none' ? 'block' : 'none';
             });
         });
-
+    
         // Futuristic cursor effect
         const cursor = document.createElement('div');
         cursor.classList.add('cursor');
         document.body.appendChild(cursor);
-
+    
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
+    </script>
+    
 
         // Add this to your existing styles
         const style = document.createElement('style');
