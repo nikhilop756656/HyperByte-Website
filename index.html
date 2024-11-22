@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HyperByte - India Aternos </title>
+    <title>HyperByte - Ultimate Minecraft Hosting</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Roboto:wght@300;400;700&display=swap');
 
@@ -34,6 +35,7 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            perspective: 1000px;
         }
 
         .container {
@@ -51,11 +53,13 @@
             z-index: 1000;
             padding: 20px 0;
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
         }
 
         header.scrolled {
             padding: 10px 0;
             background-color: rgba(5, 5, 5, 0.95);
+            transform: translateZ(20px);
         }
 
         nav {
@@ -74,6 +78,8 @@
             text-shadow: 0 0 10px var(--neon-cyan);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(30px);
         }
 
         .logo::before, .logo::after {
@@ -105,9 +111,10 @@
             color: var(--text-color);
             text-decoration: none;
             font-weight: 700;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .nav-links a::before {
@@ -131,6 +138,7 @@
         .nav-links a:hover {
             color: var(--neon-green);
             text-shadow: 0 0 10px var(--neon-green);
+            transform: translateZ(20px);
         }
 
         .hero {
@@ -144,6 +152,7 @@
             background-position: center;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .hero::before {
@@ -154,11 +163,14 @@
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.5);
+            transform: translateZ(-10px);
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
+            transform-style: preserve-3d;
+            transform: translateZ(50px);
         }
 
         h1, h2, h3 {
@@ -172,6 +184,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px var(--neon-magenta);
+            transform: translateZ(30px);
         }
 
         .btn {
@@ -189,6 +202,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(20px);
         }
 
         .btn::before {
@@ -214,7 +229,7 @@
         .btn:hover {
             background: var(--gradient-2);
             box-shadow: 0 0 20px var(--neon-magenta);
-            transform: scale(1.05);
+            transform: translateZ(30px) scale(1.05);
         }
 
         .features {
@@ -222,6 +237,7 @@
             background-color: var(--darker-bg);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .features::before {
@@ -238,6 +254,7 @@
             );
             opacity: 0.1;
             animation: pulse 10s infinite;
+            transform: translateZ(-20px);
         }
 
         .features h2 {
@@ -245,12 +262,14 @@
             font-size: 2.5rem;
             margin-bottom: 50px;
             color: var(--neon-yellow);
+            transform: translateZ(40px);
         }
 
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
+            transform-style: preserve-3d;
         }
 
         .feature-item {
@@ -261,6 +280,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .feature-item::before {
@@ -277,6 +297,7 @@
             );
             opacity: 0;
             transition: opacity 0.3s ease;
+            transform: translateZ(-10px);
         }
 
         .feature-item:hover::before {
@@ -284,7 +305,7 @@
         }
 
         .feature-item:hover {
-            transform: translateY(-10px);
+            transform: translateZ(30px) translateY(-10px);
             box-shadow: 0 0 20px var(--neon-cyan);
         }
 
@@ -294,6 +315,7 @@
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            transform: translateZ(20px);
         }
 
         .stats {
@@ -301,6 +323,7 @@
             background-color: var(--dark-bg);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .stats::after {
@@ -313,6 +336,7 @@
             background: linear-gradient(45deg, var(--neon-blue) 0%, transparent 100%);
             opacity: 0.05;
             z-index: 1;
+            transform: translateZ(-30px);
         }
 
         .stats h2 {
@@ -322,6 +346,7 @@
             color: var(--neon-yellow);
             position: relative;
             z-index: 2;
+            transform: translateZ(40px);
         }
 
         .stats-content {
@@ -331,6 +356,7 @@
             flex-wrap: wrap;
             position: relative;
             z-index: 2;
+            transform-style: preserve-3d;
         }
 
         .chart-container {
@@ -338,6 +364,7 @@
             height: 300px;
             margin-bottom: 30px;
             position: relative;
+            transform-style: preserve-3d;
         }
 
         .chart-container::before {
@@ -352,6 +379,7 @@
             filter: blur(20px);
             opacity: 0.3;
             z-index: -1;
+            transform: translateZ(-10px);
         }
 
         .stats-text {
@@ -359,6 +387,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            transform: translateZ(20px);
         }
 
         .stats-text p {
@@ -373,6 +402,7 @@
             clip-path: polygon(0 15%, 100% 0, 100% 85%, 0 100%);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .cta::before {
@@ -384,6 +414,7 @@
             bottom: 0;
             background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
             animation: shine 5s infinite linear;
+            transform: translateZ(-20px);
         }
 
         .cta h2 {
@@ -391,6 +422,7 @@
             margin-bottom: 30px;
             color: var(--dark-bg);
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transform: translateZ(30px);
         }
 
         .tech-showcase {
@@ -398,6 +430,7 @@
             background-color: var(--darker-bg);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .tech-showcase h2 {
@@ -405,12 +438,14 @@
             font-size: 2.5rem;
             margin-bottom: 50px;
             color: var(--neon-green);
+            transform: translateZ(40px);
         }
 
         .tech-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
+            transform-style: preserve-3d;
         }
 
         .tech-item {
@@ -419,10 +454,11 @@
             border-radius: 10px;
             text-align: center;
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
         }
 
         .tech-item:hover {
-            transform: translateY(-10px);
+            transform: translateZ(30px) translateY(-10px);
             box-shadow: 0 0 20px var(--neon-green);
         }
 
@@ -432,6 +468,7 @@
             background: var(--gradient-3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            transform: translateZ(20px);
         }
 
         footer {
@@ -440,6 +477,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         footer::before {
@@ -450,10 +488,12 @@
             right: 0;
             height: 2px;
             background: var(--gradient-1);
+            transform: translateZ(-10px);
         }
 
         .social-links {
             margin-top: 20px;
+            transform-style: preserve-3d;
         }
 
         .social-links a {
@@ -462,6 +502,7 @@
             margin: 0 10px;
             transition: all 0.3s ease;
             position: relative;
+            transform-style: preserve-3d;
         }
 
         .social-links a::before {
@@ -476,6 +517,7 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: -1;
+            transform: translateZ(-5px);
         }
 
         .social-links a:hover::before {
@@ -484,7 +526,7 @@
 
         .social-links a:hover {
             color: var(--neon-cyan);
-            transform: scale(1.2);
+            transform: translateZ(20px) scale(1.2);
         }
 
         @keyframes glitch-1 {
@@ -516,10 +558,10 @@
 
         @keyframes shine {
             0% {
-                transform: translateX(-100%);
+                transform: translateX(-100%) translateZ(-20px);
             }
             100% {
-                transform: translateX(100%);
+                transform: translateX(100%) translateZ(-20px);
             }
         }
 
@@ -737,17 +779,18 @@
             background-size: 20px 20px;
             opacity: 0.1;
             z-index: -1;
+            transform: translateZ(-50px);
         }
 
         @keyframes float {
             0% {
-                transform: translateY(0px);
+                transform: translateY(0px) translateZ(20px);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-20px) translateZ(30px);
             }
             100% {
-                transform: translateY(0px);
+                transform: translateY(0px) translateZ(20px);
             }
         }
 
@@ -781,10 +824,20 @@
             left: 0;
             z-index: -1;
         }
+
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
     </style>
 </head>
-<body></body>
+<body>
     <div id="particles-js"></div>
+    <div id="three-container"></div>
     <header>
         <nav class="container">
             <div class="logo" data-text="HyperByte">HyperByte</div>
@@ -902,7 +955,6 @@
             </div>
         </div>
     </footer>
-</body>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
@@ -1028,7 +1080,7 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
-            hero.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            hero.style.transform = `translateZ(${scrolled * 0.1}px)`;
         });
     
         // Interactive CTA button
@@ -1040,6 +1092,7 @@
             setTimeout(() => {
                 ctaButton.textContent = 'Minecraft Hosting Activated!';
                 ctaButton.style.background = 'var(--gradient-2)';
+                window.location.href = 'https://dash.hyperbyte.icu/';
             }, 2000);
         });
     
@@ -1126,6 +1179,34 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Three.js background effect
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.IcosahedronGeometry(1, 0);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+        const icosahedron = new THREE.Mesh(geometry, material);
+        scene.add(icosahedron);
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            icosahedron.rotation.x += 0.005;
+            icosahedron.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
